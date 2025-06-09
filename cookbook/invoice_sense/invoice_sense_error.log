@@ -1,0 +1,103 @@
+2025-06-06 11:16:18,661 ERROR:Failed to compute average confidence
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/streamlit_app.py", line 253, in <module>
+    sum(info["cleaned_data"].get("_confidence", 0)
+TypeError: unsupported operand type(s) for +: 'int' and 'NoneType'
+2025-06-06 11:26:10,843 ERROR:Extraction failed for invoice Original Document July 3 2023.pdf
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/models/anthropic/claude.py", line 250, in invoke
+    return self.get_client().messages.create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/anthropic/_utils/_utils.py", line 283, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/anthropic/resources/messages/messages.py", line 978, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/anthropic/_base_client.py", line 1290, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/anthropic/_base_client.py", line 1085, in request
+    raise self._make_status_error_from_response(err.response) from None
+anthropic.NotFoundError: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3'}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/streamlit_app.py", line 158, in <module>
+    raw_json_path = process_invoice(
+                    ^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/codex_made.py", line 157, in process_invoice
+    scan_resp = scan_agent.run(scan_prompt)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/agent/agent.py", line 1045, in run
+    raise last_exception
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/agent/agent.py", line 1006, in run
+    response = self._run(
+               ^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/agent/agent.py", line 641, in _run
+    model_response: ModelResponse = self.model.response(
+                                    ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/models/base.py", line 324, in response
+    assistant_message, has_tool_calls = self._process_model_response(
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/models/base.py", line 524, in _process_model_response
+    response = self.invoke(
+               ^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/models/anthropic/claude.py", line 263, in invoke
+    raise ModelProviderError(
+agno.exceptions.ModelProviderError: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3'}}
+2025-06-06 12:21:01,072 ERROR:Failed to compute average confidence
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/streamlit_app.py", line 222, in <module>
+    sum(info["cleaned_data"].get("_confidence", 0)
+TypeError: unsupported operand type(s) for +: 'int' and 'NoneType'
+2025-06-06 12:23:55,709 ERROR:Failed to compute average confidence
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/streamlit_app.py", line 238, in <module>
+    sum(info["cleaned_data"].get("_confidence", 0)
+TypeError: unsupported operand type(s) for +: 'int' and 'NoneType'
+2025-06-09 10:42:30,868 ERROR:Extraction failed for invoice Original Document July 3 2023.pdf
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/models/anthropic/claude.py", line 250, in invoke
+    return self.get_client().messages.create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/anthropic/_utils/_utils.py", line 283, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/anthropic/resources/messages/messages.py", line 978, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/anthropic/_base_client.py", line 1290, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/anthropic/_base_client.py", line 1085, in request
+    raise self._make_status_error_from_response(err.response) from None
+anthropic._exceptions.OverloadedError: Error code: 529 - {'type': 'error', 'error': {'type': 'overloaded_error', 'message': 'Overloaded'}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/streamlit_app.py", line 143, in <module>
+    raw_json_path = process_invoice(
+                    ^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/codex_made.py", line 148, in process_invoice
+    scan_resp = scan_agent.run(scan_prompt)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/agent/agent.py", line 1045, in run
+    raise last_exception
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/agent/agent.py", line 1006, in run
+    response = self._run(
+               ^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/agent/agent.py", line 641, in _run
+    model_response: ModelResponse = self.model.response(
+                                    ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/models/base.py", line 324, in response
+    assistant_message, has_tool_calls = self._process_model_response(
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/models/base.py", line 524, in _process_model_response
+    response = self.invoke(
+               ^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/models/anthropic/claude.py", line 263, in invoke
+    raise ModelProviderError(
+agno.exceptions.ModelProviderError: Error code: 529 - {'type': 'error', 'error': {'type': 'overloaded_error', 'message': 'Overloaded'}}

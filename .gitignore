@@ -64,4 +64,6 @@ token.json
 # Coverage
 coverage_report
 .coverage
-cookbook/invoice_sense/test_data/
+cookbook/invoice_sense/test_data/*
+cookbook/invoice_file_parser/test_data/*
+cookbook/invoice_sense/output/*
