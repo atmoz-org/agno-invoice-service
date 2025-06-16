@@ -15,12 +15,33 @@ from agno.agent import Agent
 from agno.storage.sqlite import SqliteStorage
 from agno.tools.reasoning import ReasoningTools
 import switch_model
+import glob
+from typing import List, Tuple
 
 # Initialize SQLite storage for agent sessions
 storage = SqliteStorage(
     table_name="agent_sessions",
     db_file="tmp/agent_memory.db"
 )
+
+def load_invoice_examples(example_dir: str = "examples/invoice_examples") -> List[Tuple[str, dict]]:
+    """Load all .txt/.json example pairs for few-shot invoice extraction."""
+    examples = []
+    for json_path in sorted(glob.glob(os.path.join(example_dir, "*.json"))):
+        base = os.path.splitext(os.path.basename(json_path))[0]
+        txt_path = os.path.join(example_dir, f"{base}.txt")
+        if not os.path.exists(txt_path):
+            continue
+        try:
+            with open(txt_path, encoding="utf-8") as f:
+                snippet = f.read().strip()
+            with open(json_path, encoding="utf-8") as f:
+                example_json = json.load(f)
+            examples.append((snippet, example_json))
+        except Exception:
+            continue
+    return examples
+
 
 def extract_text_from_pdf(file_path: str) -> str:
     """Extract all text from a PDF file using pdfplumber, with page delimiters."""
@@ -137,7 +158,9 @@ def process_invoice(file_path: str, model: str = "gpt-4o", provider: str = "Open
     scan_agent = Agent(
         model=switch_model.agent.model,
         storage=storage,
-        tools=[ReasoningTools(think=True, analyze=True, add_instructions=True, add_few_shot=True)],
+        tools=[
+            ReasoningTools(think=True, analyze=True, add_instructions=True, add_few_shot=True)
+        ],
         description=(
             "You are a brilliant PDF scanner who extracts the full invoice content, "
             "including tables and line items, preserving structure in plain text."
@@ -147,45 +170,65 @@ def process_invoice(file_path: str, model: str = "gpt-4o", provider: str = "Open
     scan_prompt = f"Extract and preserve the complete invoice content below as plain text, retaining layout and tables.\n\nText:\n{pdf_text}"
     scan_resp = scan_agent.run(scan_prompt)
     scanned_text = scan_resp.content if hasattr(scan_resp, "content") else str(scan_resp)
+
     # Step 3: Parse structured fields from scanned text with a separate agent
     parse_agent = Agent(
         model=switch_model.agent.model,
         storage=storage,
-        tools=[ReasoningTools(think=True, analyze=True, add_instructions=True, add_few_shot=True)],
+        tools=[
+            ReasoningTools(think=True, analyze=True, add_instructions=True, add_few_shot=True)
+        ],
         description=(
             "You are a brilliant accountant AI, expert at extracting structured invoice data from any invoice format. "
             "Ignore any visual layout or structural formatting; extract all information fields regardless of their position or structure. "
             "Identify and extract all relevant fields, including invoice number, invoice date, due date, total amount, currency, customer and vendor references, line items, payment terms, tax details, and any additional invoice metadata. "
             "Provide the output as a JSON object with clearly labeled keys."
         ),
+        show_tool_calls=True,
+        stream_intermediate_steps=True,
         markdown=False,
+        debug_mode=False,
     )
+    # Build few-shot examples from files
+    examples = load_invoice_examples()
+    examples_prompt = ""
+    for snippet, ex_json in examples:
+        examples_prompt += (
+            "Example:\n"
+            f"Input:\n{snippet}\n\n"
+            f"Output JSON:\n{json.dumps(ex_json, indent=4)}\n\n"
+        )
+
+    # Parse invoice with few-shot guidance (including extra fields)
     parse_prompt = (
-        "You are an AI assistant specialized in extracting invoice data. "
-        "Extract the specified fields below and present the result as a single valid JSON object. "
-        "Use the exact key names listed, and if a field cannot be found, include it with a null value. "
-        "Do not include any markdown or additional text.\n"
-        "Fields to extract:\n"
-        "- invoice_number (Invoice Number / Fakturanr)\n"
-        "- invoice_date (Invoice Date / Fakturadatum, format YYYY-MM-DD)\n"
-        "- due_date (Due Date / Förfallodatum, format YYYY-MM-DD)\n"
-        "- total_amount (Total Amount / Totalt ATT BETALA)\n"
-        "- currency\n"
-        "- customer_number (Customer Number / Kundnr)\n"
-        "- our_reference (Our Reference / Vår referens)\n"
-        "- your_reference (Your Reference / Er referens)\n"
-        "- payment_terms (Payment Terms / Betalningsvillkor)\n"
-        "- delivery_terms (Delivery Terms / Leveransvillkor)\n"
-        "- delivery_method (Delivery Method / Leveranssätt)\n"
-        "- late_payment_interest (Late Payment Interest / Dröjsmålsränta)\n"
-        "- service_period (Service Period / Fakturaperiod)\n"
-        "- iban (IBAN)\n"
-        "- bic (BIC)\n"
-        "- vat_registration_number (VAT Registration Number / Momsreg. nr)\n"
-        "- email (Email / E-post)\n"
-        "- web_address (Web Address / Webbadress)\n"
-        "- tax_authorization (Tax Authorization / Godkänd för F-skatt)\n"
-        "- line_items (List of invoice line items, each with description, quantity, unit_price, and total_amount)\n"
+        examples_prompt
+        + "You are an AI assistant specialized in extracting invoice data. "
+          "Extract the specified fields below and present the result as a single valid JSON object. "
+          "Use the exact key names listed, and if a field cannot be found, include it with a null value. "
+          "Respond with ONLY JSON (no markdown or additional text).\n"
+          "Fields to extract:\n"
+          "- invoice_number (Invoice Number / Fakturanr)\n"
+          "- invoice_date (Invoice Date / Fakturadatum, format YYYY-MM-DD)\n"
+          "- due_date (Due Date / Förfallodatum, format YYYY-MM-DD)\n"
+          "- total_amount (Total Amount / Totalt ATT BETALA)\n"
+          "- currency\n"
+          "- customer_number (Customer Number / Kundnr)\n"
+          "- our_reference (Our Reference / Vår referens)\n"
+          "- your_reference (Your Reference / Er referens)\n"
+          "- payment_terms (Payment Terms / Betalningsvillkor)\n"
+          "- delivery_terms (Delivery Terms / Leveransvillkor)\n"
+          "- delivery_method (Delivery Method / Leveranssätt)\n"
+          "- late_payment_interest (Late Payment Interest / Dröjsmålsränta)\n"
+          "- service_period (Service Period / Fakturaperiod)\n"
+          "- iban (IBAN)\n"
+          "- bic (BIC)\n"
+          "- vat_registration_number (VAT Registration Number / Momsreg. nr)\n"
+          "- email (Email / E-post)\n"
+          "- web_address (Web Address / Webbadress)\n"
+          "- tax_authorization (Tax Authorization / Godkänd för F-skatt)\n"
+          "- line_items (List of invoice line items, each with description, quantity, unit_price, and total_amount)\n"
+          "- additional_fields (Any extra fields not in the standard list)\n"
+          "\nAlso include any extra invoice fields you find under 'additional_fields'; do not drop or ignore values just because they differ from examples.\n"
         f"\nInvoice Text:\n{scanned_text}"
     )
     parse_resp = parse_agent.run(parse_prompt)

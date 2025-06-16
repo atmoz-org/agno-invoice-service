@@ -1,0 +1,8 @@
+anthropic
+google-genai
+pdfplumber
+watchdog
+streamlit
+openai
+agno
+sqlalchemy

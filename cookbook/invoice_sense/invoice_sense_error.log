@@ -101,3 +101,501 @@ Traceback (most recent call last):
   File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/models/anthropic/claude.py", line 263, in invoke
     raise ModelProviderError(
 agno.exceptions.ModelProviderError: Error code: 529 - {'type': 'error', 'error': {'type': 'overloaded_error', 'message': 'Overloaded'}}
+2025-06-13 12:20:17,832 ERROR:Extraction failed for invoice 204680_ab37745f-4c31-4e3a-a459-0ec85db74976-2860359089176.pdf
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/models/google/gemini.py", line 237, in invoke
+    return self.get_client().models.generate_content(
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/models/google/gemini.py", line 135, in get_client
+    self.client = genai.Client(**client_params)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/google/genai/client.py", line 219, in __init__
+    self._api_client = self._get_api_client(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/google/genai/client.py", line 265, in _get_api_client
+    return BaseApiClient(
+           ^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/google/genai/_api_client.py", line 486, in __init__
+    raise ValueError(
+ValueError: Missing key inputs argument! To use the Google AI API, provide (`api_key`) arguments. To use the Google Cloud API, provide (`vertexai`, `project` & `location`) arguments.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/streamlit_app.py", line 149, in <module>
+    raw_json_path = process_invoice(
+                    ^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/codex_made.py", line 148, in process_invoice
+    scan_resp = scan_agent.run(scan_prompt)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/agent/agent.py", line 1045, in run
+    raise last_exception
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/agent/agent.py", line 1006, in run
+    response = self._run(
+               ^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/agent/agent.py", line 641, in _run
+    model_response: ModelResponse = self.model.response(
+                                    ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/models/base.py", line 324, in response
+    assistant_message, has_tool_calls = self._process_model_response(
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/models/base.py", line 524, in _process_model_response
+    response = self.invoke(
+               ^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/site-packages/agno/models/google/gemini.py", line 253, in invoke
+    raise ModelProviderError(message=str(e), model_name=self.name, model_id=self.id) from e
+agno.exceptions.ModelProviderError: Missing key inputs argument! To use the Google AI API, provide (`api_key`) arguments. To use the Google Cloud API, provide (`vertexai`, `project` & `location`) arguments.
+2025-06-13 12:25:51,883 ERROR:Extraction failed for invoice 204680_ab37745f-4c31-4e3a-a459-0ec85db74976-2860359089176.pdf
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/google/gemini.py", line 237, in invoke
+    return self.get_client().models.generate_content(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/models.py", line 6058, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/models.py", line 5007, in _generate_content
+    response_dict = self._api_client.request(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/_api_client.py", line 927, in request
+    response = self._request(http_request, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/_api_client.py", line 793, in _request
+    errors.APIError.raise_for_response(response)
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/errors.py", line 104, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/streamlit_app.py", line 149, in <module>
+    raw_json_path = process_invoice(
+                    ^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/codex_made.py", line 148, in process_invoice
+    scan_resp = scan_agent.run(scan_prompt)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1045, in run
+    raise last_exception
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1006, in run
+    response = self._run(
+               ^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 641, in _run
+    model_response: ModelResponse = self.model.response(
+                                    ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 324, in response
+    assistant_message, has_tool_calls = self._process_model_response(
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 524, in _process_model_response
+    response = self.invoke(
+               ^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/google/gemini.py", line 245, in invoke
+    raise ModelProviderError(
+agno.exceptions.ModelProviderError: <Response [400 Bad Request]>
+2025-06-13 13:06:40,845 ERROR:Extraction failed for invoice 204680_ab37745f-4c31-4e3a-a459-0ec85db74976-2860359089176.pdf
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/google/gemini.py", line 237, in invoke
+    return self.get_client().models.generate_content(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/models.py", line 6058, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/models.py", line 5007, in _generate_content
+    response_dict = self._api_client.request(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/_api_client.py", line 927, in request
+    response = self._request(http_request, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/_api_client.py", line 793, in _request
+    errors.APIError.raise_for_response(response)
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/errors.py", line 104, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/streamlit_app.py", line 149, in <module>
+    raw_json_path = process_invoice(
+                    ^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/codex_made.py", line 148, in process_invoice
+    scan_resp = scan_agent.run(scan_prompt)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1045, in run
+    raise last_exception
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1006, in run
+    response = self._run(
+               ^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 641, in _run
+    model_response: ModelResponse = self.model.response(
+                                    ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 324, in response
+    assistant_message, has_tool_calls = self._process_model_response(
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 524, in _process_model_response
+    response = self.invoke(
+               ^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/google/gemini.py", line 245, in invoke
+    raise ModelProviderError(
+agno.exceptions.ModelProviderError: <Response [400 Bad Request]>
+2025-06-13 13:07:56,192 ERROR:Extraction failed for invoice 204680_ab37745f-4c31-4e3a-a459-0ec85db74976-2860359089176.pdf
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/google/gemini.py", line 237, in invoke
+    return self.get_client().models.generate_content(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/models.py", line 6058, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/models.py", line 5007, in _generate_content
+    response_dict = self._api_client.request(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/_api_client.py", line 927, in request
+    response = self._request(http_request, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/_api_client.py", line 793, in _request
+    errors.APIError.raise_for_response(response)
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/errors.py", line 104, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/streamlit_app.py", line 149, in <module>
+    raw_json_path = process_invoice(
+                    ^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/codex_made.py", line 148, in process_invoice
+    scan_resp = scan_agent.run(scan_prompt)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1045, in run
+    raise last_exception
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1006, in run
+    response = self._run(
+               ^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 641, in _run
+    model_response: ModelResponse = self.model.response(
+                                    ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 324, in response
+    assistant_message, has_tool_calls = self._process_model_response(
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 524, in _process_model_response
+    response = self.invoke(
+               ^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/google/gemini.py", line 245, in invoke
+    raise ModelProviderError(
+agno.exceptions.ModelProviderError: <Response [400 Bad Request]>
+2025-06-13 13:09:08,988 ERROR:Extraction failed for invoice 204680_ab37745f-4c31-4e3a-a459-0ec85db74976-2860359089176.pdf
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/google/gemini.py", line 237, in invoke
+    return self.get_client().models.generate_content(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/models.py", line 6058, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/models.py", line 5007, in _generate_content
+    response_dict = self._api_client.request(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/_api_client.py", line 927, in request
+    response = self._request(http_request, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/_api_client.py", line 793, in _request
+    errors.APIError.raise_for_response(response)
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/errors.py", line 104, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/streamlit_app.py", line 149, in <module>
+    raw_json_path = process_invoice(
+                    ^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/codex_made.py", line 148, in process_invoice
+    scan_resp = scan_agent.run(scan_prompt)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1045, in run
+    raise last_exception
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1006, in run
+    response = self._run(
+               ^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 641, in _run
+    model_response: ModelResponse = self.model.response(
+                                    ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 324, in response
+    assistant_message, has_tool_calls = self._process_model_response(
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 524, in _process_model_response
+    response = self.invoke(
+               ^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/google/gemini.py", line 245, in invoke
+    raise ModelProviderError(
+agno.exceptions.ModelProviderError: <Response [400 Bad Request]>
+2025-06-13 13:15:24,716 ERROR:Cleaning failed for invoice 204680_ab37745f-4c31-4e3a-a459-0ec85db74976-2860359089176.pdf
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/openai/chat.py", line 329, in invoke
+    return self.get_client().chat.completions.create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/openai/_utils/_utils.py", line 287, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 925, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/openai/_base_client.py", line 1242, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/openai/_base_client.py", line 1037, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'error': {'message': 'The model `gemini-2.0-flash` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/streamlit_app.py", line 193, in <module>
+    cleaned_path = process_cleaning(
+                   ^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/codex_file_cleaner.py", line 201, in process_cleaning
+    response = agent.run(prompt)
+               ^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1045, in run
+    raise last_exception
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1006, in run
+    response = self._run(
+               ^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 641, in _run
+    model_response: ModelResponse = self.model.response(
+                                    ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 324, in response
+    assistant_message, has_tool_calls = self._process_model_response(
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 524, in _process_model_response
+    response = self.invoke(
+               ^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/openai/chat.py", line 362, in invoke
+    raise ModelProviderError(
+agno.exceptions.ModelProviderError: The model `gemini-2.0-flash` does not exist or you do not have access to it.
+2025-06-13 13:17:05,327 ERROR:Extraction failed for invoice 204680_ab37745f-4c31-4e3a-a459-0ec85db74976-2860359089176.pdf
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/google/gemini.py", line 237, in invoke
+    return self.get_client().models.generate_content(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/models.py", line 6058, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/models.py", line 5007, in _generate_content
+    response_dict = self._api_client.request(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/_api_client.py", line 927, in request
+    response = self._request(http_request, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/_api_client.py", line 793, in _request
+    errors.APIError.raise_for_response(response)
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/errors.py", line 104, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/streamlit_app.py", line 149, in <module>
+    raw_json_path = process_invoice(
+                    ^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/codex_made.py", line 148, in process_invoice
+    scan_resp = scan_agent.run(scan_prompt)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1045, in run
+    raise last_exception
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1006, in run
+    response = self._run(
+               ^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 641, in _run
+    model_response: ModelResponse = self.model.response(
+                                    ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 324, in response
+    assistant_message, has_tool_calls = self._process_model_response(
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 524, in _process_model_response
+    response = self.invoke(
+               ^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/google/gemini.py", line 245, in invoke
+    raise ModelProviderError(
+agno.exceptions.ModelProviderError: <Response [400 Bad Request]>
+2025-06-13 13:18:21,706 ERROR:Cleaning failed for invoice 204680_ab37745f-4c31-4e3a-a459-0ec85db74976-2860359089176.pdf
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/openai/chat.py", line 329, in invoke
+    return self.get_client().chat.completions.create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/openai/_utils/_utils.py", line 287, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 925, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/openai/_base_client.py", line 1242, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/openai/_base_client.py", line 1037, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'error': {'message': 'The model `gemini-2.0-flash` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/streamlit_app.py", line 193, in <module>
+    cleaned_path = process_cleaning(
+                   ^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/codex_file_cleaner.py", line 201, in process_cleaning
+    response = agent.run(prompt)
+               ^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1045, in run
+    raise last_exception
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1006, in run
+    response = self._run(
+               ^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 641, in _run
+    model_response: ModelResponse = self.model.response(
+                                    ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 324, in response
+    assistant_message, has_tool_calls = self._process_model_response(
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 524, in _process_model_response
+    response = self.invoke(
+               ^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/openai/chat.py", line 362, in invoke
+    raise ModelProviderError(
+agno.exceptions.ModelProviderError: The model `gemini-2.0-flash` does not exist or you do not have access to it.
+2025-06-13 13:52:21,060 ERROR:Extraction failed for invoice 204680_ab37745f-4c31-4e3a-a459-0ec85db74976-2860359089176.pdf
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/google/gemini.py", line 237, in invoke
+    return self.get_client().models.generate_content(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/models.py", line 6058, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/models.py", line 5007, in _generate_content
+    response_dict = self._api_client.request(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/_api_client.py", line 927, in request
+    response = self._request(http_request, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/_api_client.py", line 793, in _request
+    errors.APIError.raise_for_response(response)
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/errors.py", line 104, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_requests_per_model_per_day', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel'}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-pro-exp'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-pro-exp'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerDay-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-pro-exp'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-pro-exp'}}]}, {'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '38s'}]}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/streamlit_app.py", line 150, in <module>
+    raw_json_path = process_invoice(
+                    ^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/codex_made.py", line 150, in process_invoice
+    scan_resp = scan_agent.run(scan_prompt)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1045, in run
+    raise last_exception
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1006, in run
+    response = self._run(
+               ^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 641, in _run
+    model_response: ModelResponse = self.model.response(
+                                    ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 324, in response
+    assistant_message, has_tool_calls = self._process_model_response(
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 524, in _process_model_response
+    response = self.invoke(
+               ^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/google/gemini.py", line 245, in invoke
+    raise ModelProviderError(
+agno.exceptions.ModelProviderError: <Response [429 Too Many Requests]>
+2025-06-13 14:11:24,454 ERROR:Extraction failed for invoice 204680_ab37745f-4c31-4e3a-a459-0ec85db74976-2860359089176.pdf
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/google/gemini.py", line 237, in invoke
+    return self.get_client().models.generate_content(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/models.py", line 6058, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/models.py", line 5007, in _generate_content
+    response_dict = self._api_client.request(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/_api_client.py", line 927, in request
+    response = self._request(http_request, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/_api_client.py", line 793, in _request
+    errors.APIError.raise_for_response(response)
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/google/genai/errors.py", line 106, in raise_for_response
+    raise ServerError(status_code, response_json, response)
+google.genai.errors.ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/streamlit_app.py", line 150, in <module>
+    raw_json_path = process_invoice(
+                    ^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/codex_made.py", line 202, in process_invoice
+    parse_resp = parse_agent.run(parse_prompt)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1045, in run
+    raise last_exception
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 1006, in run
+    response = self._run(
+               ^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/agent/agent.py", line 641, in _run
+    model_response: ModelResponse = self.model.response(
+                                    ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 324, in response
+    assistant_message, has_tool_calls = self._process_model_response(
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/base.py", line 524, in _process_model_response
+    response = self.invoke(
+               ^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/envs/agno-invoice-sense/lib/python3.11/site-packages/agno/models/google/gemini.py", line 245, in invoke
+    raise ModelProviderError(
+agno.exceptions.ModelProviderError: <Response [503 Service Unavailable]>
+2025-06-13 14:25:03,302 ERROR:Extraction failed for invoice 204680_ab37745f-4c31-4e3a-a459-0ec85db74976-2860359089176.pdf
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/streamlit_app.py", line 150, in <module>
+    raw_json_path = process_invoice(
+                    ^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/codex_made.py", line 188, in process_invoice
+    return save_to_json(data, base)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/codex_made.py", line 75, in save_to_json
+    json.dump(data, f, indent=4, ensure_ascii=False)
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/json/encoder.py", line 432, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/json/encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/json/encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type date is not JSON serializable
+2025-06-13 14:27:19,015 ERROR:Extraction failed for invoice 204680_ab37745f-4c31-4e3a-a459-0ec85db74976-2860359089176.pdf
+Traceback (most recent call last):
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/streamlit_app.py", line 150, in <module>
+    raw_json_path = process_invoice(
+                    ^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/codex_made.py", line 188, in process_invoice
+    return save_to_json(data, base)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/RiderProjects/agno/cookbook/invoice_sense/codex_made.py", line 75, in save_to_json
+    json.dump(data, f, indent=4, ensure_ascii=False)
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/json/encoder.py", line 432, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/json/encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/json/encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "/Users/nishanthanbaskaran/.pyenv/versions/3.11.11/lib/python3.11/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type date is not JSON serializable

@@ -67,3 +67,4 @@ coverage_report
 cookbook/invoice_sense/test_data/*
 cookbook/invoice_file_parser/test_data/*
 cookbook/invoice_sense/output/*
+cookbook/invoice_sense/examples/invoice_examples/*

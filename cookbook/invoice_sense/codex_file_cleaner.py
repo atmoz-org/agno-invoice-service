@@ -22,6 +22,9 @@ from agno.storage.sqlite import SqliteStorage
 import switch_model
 from agno.models.openai import OpenAIChat
 from agno.tools.reasoning import ReasoningTools
+from agno.models.anthropic import Claude
+from agno.models.google import Gemini
+
 
 # Initialize SQLite storage for agent sessions
 storage = SqliteStorage(
@@ -162,22 +165,40 @@ def process_cleaning(raw_json_path: str, pdf_path: str, model: str = "gpt-4o", p
     # Determine which chat model class to use based on provider
     if provider.lower() == "anthropic":
         try:
-            from agno.models.anthropic import Claude as ChatModelClass
+            agent = Agent(
+                model=Claude(id=model),
+                storage=storage,
+                tools=[ReasoningTools(think=True, analyze=True, add_instructions=True, add_few_shot=True)],
+                description="Clean and validate extracted invoice JSON against original PDF text.",
+                markdown=True,
+            )
         except ImportError:
             raise ImportError(
-                "Anthropic support is not available. Please install 'anthropic' and enable Anthropic in agno." 
+                "Anthropic support is not available. Please install 'anthropic' and enable Anthropic in agno."
+            )
+    elif provider.lower() == "google":
+        try:
+            agent = Agent(
+                model=Gemini(id=model),
+                storage=storage,
+                tools=[ReasoningTools(think=True, analyze=True, add_instructions=True, add_few_shot=True)],
+                description="Clean and validate extracted invoice JSON against original PDF text.",
+                markdown=True,
+            )
+        except ImportError:
+            raise ImportError(
+                "Gemini support is not available. Please install 'google' and enable Anthropic in agno."
             )
     else:
-        from agno.models.openai import OpenAIChat as ChatModelClass
-
+        agent = Agent(
+                model=OpenAIChat(id=model),
+                storage=storage,
+                tools=[ReasoningTools(think=True, analyze=True, add_instructions=True, add_few_shot=True)],
+                description="Clean and validate extracted invoice JSON against original PDF text.",
+                markdown=True,
+            )
     # Initialize the agent with reasoning tools
-    agent = Agent(
-        model=ChatModelClass(id=model),
-        storage=storage,
-        tools=[ReasoningTools(think=True, analyze=True, add_instructions=True, add_few_shot=True)],
-        description="Clean and validate extracted invoice JSON against original PDF text.",
-        markdown=True,
-    )
+
 
     # Build cleaning prompt and ask for self-evaluated confidence
     prompt = (
