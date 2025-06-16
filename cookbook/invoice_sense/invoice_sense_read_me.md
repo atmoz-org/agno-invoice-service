@@ -10,9 +10,9 @@ This repository provides a Streamlit web application for extracting and cleaning
 - (Optional) A Python virtual environment
 
 ## Environment Variables
-- `OPENAI_API_KEY`: Your OpenAI API key for GPT models
-- `ANTHROPIC_API_KEY`: Your Anthropic Claude API key
-- `GOOGLE_API_KEY`: Your Google Gemini API key
+- `OPENAI_API_KEY`: Your OpenAI API key for GPT models here https://platform.openai.com/api-keys
+- `ANTHROPIC_API_KEY`: Your Anthropic Claude API key here https://docs.anthropic.com/en/api/admin-api/apikeys/get-api-key
+- `GOOGLE_API_KEY`: Your Google Gemini API key here https://ai.google.dev/gemini-api/docs/api-key
 
 Export them before running:
 ```bash
